@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberPlann - Organização & Segurança Digital</title>
+    <!-- Fonte Google Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Arquivo de Estilos Externo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Topo / Cabeçalho -->
+    <header>
+        <div class="user-profile">
+            <div class="user-info">
+                <h1>CyberPlann</h1>
+                <p>Plano de Estudos & Proteção</p>
+            </div>
+            <div class="avatar">JS</div>
+        </div>
+        <div class="progress-box">
+            <div class="progress-header">
+                <span>Meta de Segurança da Semana</span>
+                <span id="progress-text">2 / 5 Concluídas</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main id="main-content">
+        <!-- Guia 1: Cronograma Semanal -->
+        <div id="tab-agenda">
+            <div class="section-title">Sua Rotina Semanal</div>
+
+            <!-- Segunda-feira -->
+            <div class="day-card completed" id="card-1">
+                <div class="day-header">
+                    <span class="day-tag">SEGUNDA-FEIRA</span>
+                    <span class="status-done">✓ Feito</span>
+                </div>
+                <div class="task-title">Identificar links falsos no e-mail da faculdade/escola</div>
+                <div class="card-actions">
+                    <button class="btn btn-outline" onclick="openModal('Segunda-feira: Phishing', 'Golpistas costumam enviar e-mails parecidos com a sua escola exigindo troca urgente de senha. Sempre verifique o endereço do remetente!')">Explicação</button>
+                </div>
+            </div>
+
+            <!-- Terça-feira -->
+            <div class="day-card completed" id="card-2">
+                <div class="day-header">
+                    <span class="day-tag">TERÇA-FEIRA</span>
+                    <span class="status-done">✓ Feito</span>
+                </div>
+                <div class="task-title">Trocar senha fraca do Portal do Aluno por uma Frase-Senha</div>
+                <div class="card-actions">
+                    <button class="btn btn-outline" onclick="openModal('Terça-feira: Frase-Senha', 'Em vez de usar datas ou nomes simples, junte 3 ou 4 palavras sem nexo. Exemplo: CaféLivroJanela22!. É muito difícil para um hacker adivinhar.')">Explicação</button>
+                </div>
+            </div>
+
+            <!-- Quarta-feira -->
+            <div class="day-card" id="card-3">
+                <div class="day-header">
+                    <span class="day-tag">QUARTA-FEIRA</span>
+                </div>
+                <div class="task-title">Ativar Autenticação em 2 Etapas (2FA) no e-mail principal</div>
+                <div class="card-actions">
+                    <button class="btn btn-outline" onclick="openModal('Quarta-feira: Verificação em 2 Etapas', 'O 2FA adiciona uma segunda tranca na sua conta. Mesmo que descubram sua senha, precisarão do código no seu celular para entrar.')">Por que fazer?</button>
+                    <button class="btn btn-action" onclick="completeTask('card-3')">Concluir Meta</button>
+                </div>
+            </div>
+
+            <!-- Quinta-feira -->
+            <div class="day-card" id="card-4">
+                <div class="day-header">
+                    <span class="day-tag">QUINTA-FEIRA</span>
+                </div>
+                <div class="task-title">Cuidados ao usar a rede Wi-Fi pública da biblioteca</div>
+                <div class="card-actions">
+                    <button class="btn btn-outline" onclick="openModal('Quinta-feira: Wi-Fi Público', 'Redes abertas podem ser espionadas. Evite acessar o aplicativo do seu banco ou digitar senhas importantes quando estiver conectado ao Wi-Fi público.')">Por que fazer?</button>
+                    <button class="btn btn-action" onclick="completeTask('card-4')">Concluir Meta</button>
+                </div>
+            </div>
+
+            <!-- Sexta-feira -->
+            <div class="day-card" id="card-5">
+                <div class="day-header">
+                    <span class="day-tag">SEXTA-FEIRA</span>
+                </div>
+                <div class="task-title">Verificar se seus dados (CPF/E-mail) foram vazados</div>
+                <div class="card-actions">
+                    <button class="btn btn-outline" onclick="openModal('Sexta-feira: Vazamento de Dados', 'Grandes empresas às vezes sofrem ataques e seus dados podem ir para a internet. Fazer um check-up ajuda você a saber se precisa trocar suas senhas.')">Por que fazer?</button>
+                    <button class="btn btn-action" onclick="completeTask('card-5')">Concluir Meta</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guia 2: Analisador Rápido -->
+        <div id="tab-detector" style="display: none;">
+            <div class="section-title">Analisador de Suspeitas</div>
+            <div class="checker-box">
+                <p class="checker-title">Recebeu uma mensagem ou link estranho?</p>
+                <p class="checker-sub">Cole abaixo para fazer um diagnóstico simples.</p>
+                
+                <input type="text" id="suspect-input" placeholder="Cole o link ou texto suspeito aqui...">
+                <button class="btn btn-action full-width" onclick="analyzeInput()">Analisar Agora</button>
+
+                <div id="analysis-result"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Navegação Inferior -->
+    <nav>
+        <div class="nav-item active" id="nav-agenda" onclick="switchTab('agenda')">
+            📅 Plano Semanal
+        </div>
+        <div class="nav-item" id="nav-detector" onclick="switchTab('detector')">
+            🔍 Analisar Suspeita
+        </div>
+    </nav>
+</div>
+
+<!-- Modal para Explicações -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <div class="modal-header" id="modal-title">Título</div>
+        <div class="modal-body" id="modal-body">Explicação aqui...</div>
+        <button class="btn btn-action full-width" onclick="closeModal()">Entendi!</button>
+    </div>
+</div>
+
+<script>
+    let completedCount = 2;
+    const totalTasks = 5;
+
+    function updateProgress() {
+        const percentage = (completedCount / totalTasks) * 100;
+        document.getElementById('progress-bar').style.width = percentage + '%';
+        document.getElementById('progress-text').innerText = `${completedCount} / ${totalTasks} Concluídas`;
+    }
+
+    function completeTask(cardId) {
+        const card = document.getElementById(cardId);
+        if (!card.classList.contains('completed')) {
+            card.classList.add('completed');
+            const actions = card.querySelector('.card-actions');
+            actions.innerHTML = `<button class="btn btn-outline" onclick="openModal('Meta Concluída!', 'Você deu mais um passo para manter seus dados seguros esta semana.')">Explicação</button>`;
+            
+            const header = card.querySelector('.day-header');
+            const doneSpan = document.createElement('span');
+            doneSpan.className = 'status-done';
+            doneSpan.innerText = '✓ Feito';
+            header.appendChild(doneSpan);
+            
+            completedCount++;
+            updateProgress();
+        }
+    }
+
+    function openModal(title, text) {
+        document.getElementById('modal-title').innerText = title;
+        document.getElementById('modal-body').innerText = text;
+        document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+    }
+
+    function switchTab(tab) {
+        document.getElementById('tab-agenda').style.display = tab === 'agenda' ? 'block' : 'none';
+        document.getElementById('tab-detector').style.display = tab === 'detector' ? 'block' : 'none';
+
+        document.getElementById('nav-agenda').classList.toggle('active', tab === 'agenda');
+        document.getElementById('nav-detector').classList.toggle('active', tab === 'detector');
+    }
+
+    function analyzeInput() {
+        const input = document.getElementById('suspect-input').value.toLowerCase();
+        const resultDiv = document.getElementById('analysis-result');
+        
+        if (!input.trim()) {
+            alert('Por favor, cole um link ou mensagem para analisar.');
+            return;
+        }
+
+        resultDiv.style.display = 'block';
+
+        if (input.includes('urgente') || input.includes('senha') || input.includes('premio') || input.includes('http:')) {
+            resultDiv.innerHTML = `
+                <div class="alert-danger">
+                    <strong>⚠️ Alerta de Risco:</strong> Esta mensagem contém palavras frequentemente usadas em golpes (como urgência ou links não seguros). Não clique e não informe dados pessoais!
+                </div>
+            `;
+        } else {
+            resultDiv.innerHTML = `
+                <div class="alert-success">
+                    <strong>✅ Parece Seguro:</strong> Não identificamos padrões óbvios de golpe, mas mantenha a atenção: verifique sempre se o remetente é oficial.
+                </div>
+            `;
+        }
+    }
+
+    updateProgress();
+</script>
+
+</body>
+</html>
