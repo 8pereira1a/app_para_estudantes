@@ -3,223 +3,970 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberPlann - Hub de Segurança & Estudos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>CyberPlann - Hub de Organização & Cibersegurança</title>
+    <!-- Fonte Google Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #F8FAFC;
+            --surface: #FFFFFF;
+            --surface-hover: #F1F5F9;
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --primary-light: #EEF2FF;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            
+            /* Cores de Categoria */
+            --red-bg: #FEF2F2; --red-text: #EF4444; --red-border: #FCA5A5;
+            --blue-bg: #EFF6FF; --blue-text: #3B82F6; --blue-border: #93C5FD;
+            --green-bg: #F0FDF4; --green-text: #10B981; --green-border: #86EFAC;
+            --yellow-bg: #FEFCE8; --yellow-text: #D97706; --yellow-border: #FDE047;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Layout Principal */
+        .app-layout {
+            display: flex;
+            width: 100vw;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navegação */
+        .sidebar {
+            width: 280px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            position: fixed;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding: 0 8px;
+        }
+
+        .brand-icon {
+            font-size: 1.8rem;
+            background: var(--primary-light);
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+        .brand h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .user-details h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .user-details p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Área do Conteúdo Principal */
+        .main-wrapper {
+            margin-left: 280px;
+            flex: 1;
+            padding: 32px 40px;
+            max-width: 1300px;
+        }
+
+        /* Top Bar & Progresso */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            gap: 20px;
+        }
+
+        .header-title h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .progress-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 16px 20px;
+            border-radius: 16px;
+            min-width: 280px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 33%;
+            background: var(--primary);
+            border-radius: 5px;
+            transition: width 0.4s ease;
+        }
+
+        /* Filtros e Busca */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 380px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+        }
+
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            opacity: 0.5;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            background: var(--surface);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .filter-btn {
+            border: none;
+            background: transparent;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Seções e Grelha de Cards */
+        .section-block {
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .section-badge {
+            background: var(--border);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        /* Card Individual */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.04);
+            border-color: #CBD5E1;
+        }
+
+        .card.completed {
+            background: #F0FDF4;
+            border-color: var(--green-border);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge.red { background: var(--red-bg); color: var(--red-text); }
+        .badge.blue { background: var(--blue-bg); color: var(--blue-text); }
+        .badge.green { background: var(--green-bg); color: var(--green-text); }
+        .badge.yellow { background: var(--yellow-bg); color: var(--yellow-text); }
+
+        .card-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-hover);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-success {
+            background: var(--green-text);
+            color: white;
+        }
+
+        /* Tela do Analisador */
+        .analyzer-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 800px;
+        }
+
+        .analyzer-box input, .analyzer-box textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            margin: 16px 0;
+            outline: none;
+        }
+
+        .analyzer-box input:focus {
+            border-color: var(--primary);
+        }
+
+        .result-card {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .result-card.danger {
+            background: var(--red-bg);
+            border: 1px solid var(--red-border);
+            color: #991B1B;
+        }
+
+        .result-card.safe {
+            background: var(--green-bg);
+            border: 1px solid var(--green-border);
+            color: #166534;
+        }
+
+        /* Tela de Validação & Pesquisa */
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .question-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .question-card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .question-card textarea {
+            width: 100%;
+            height: 70px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            resize: vertical;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            padding: 28px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-box h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .modal-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
-<div class="dashboard-layout">
-    <!-- Barra Lateral (Sidebar) -->
+<div class="app-layout">
+    <!-- Menu Lateral -->
     <aside class="sidebar">
         <div class="brand">
             <span class="brand-icon">🛡️</span>
             <h2>CyberPlann</h2>
         </div>
-        
+
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item active">
-                <span class="icon">📚</span>
-                <span>Hub de Estudos</span>
-            </a>
-            <a href="#" class="nav-item">
-                <span class="icon">🔍</span>
-                <span>Analisar Suspeita</span>
-            </a>
-            <a href="#" class="nav-item">
-                <span class="icon">⚙️</span>
-                <span>Configurações</span>
-            </a>
+            <div class="nav-link active" onclick="switchMainTab('hub', this)">
+                <span>📚</span> Hub de Estudos
+            </div>
+            <div class="nav-link" onclick="switchMainTab('analyzer', this)">
+                <span>🔍</span> Analisador de Suspeitas
+            </div>
+            <div class="nav-link" onclick="switchMainTab('validation', this)">
+                <span>📋</span> Pesquisa & Validação
+            </div>
+            <div class="nav-link" onclick="switchMainTab('settings', this)">
+                <span>⚙️</span> Configurações
+            </div>
         </nav>
 
         <div class="sidebar-footer">
             <div class="user-avatar">JS</div>
-            <div class="user-info">
-                <span class="user-name">Estudante</span>
-                <span class="user-status">Plano Ativo</span>
+            <div class="user-details">
+                <h4>João Silva</h4>
+                <p>Estudante / Conectado</p>
             </div>
         </div>
     </aside>
 
-    <!-- Conteúdo Principal Dashboard -->
-    <main class="main-content">
-        <!-- Topo com Progresso -->
+    <!-- Área de Conteúdo -->
+    <main class="main-wrapper">
+        
+        <!-- Cabeçalho Principal -->
         <header class="top-header">
-            <div>
-                <h1>Materiais de Prevenção & Segurança</h1>
-                <p class="subtitle">Organize as suas tarefas e conteúdos de proteção online por categoria.</p>
+            <div class="header-title">
+                <h1 id="page-title">Hub de Estudos & Cibersegurança</h1>
+                <p id="page-subtitle">Organize sua rotina semanal e aprenda a se proteger contra golpes digitais.</p>
             </div>
-            <div class="progress-card">
+
+            <div class="progress-box">
                 <div class="progress-info">
-                    <span>Progresso Semanal</span>
-                    <strong>40%</strong>
+                    <span>Metas da Semana</span>
+                    <span id="progress-percent">40% Concluído</span>
                 </div>
                 <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: 40%;"></div>
+                    <div class="progress-bar-fill" id="progress-bar" style="width: 40%;"></div>
                 </div>
             </div>
         </header>
 
-        <!-- SEÇÃO 1: Guias e Documentos (PDF) -->
-        <section class="content-section">
-            <div class="section-header">
-                <span class="section-icon red">📄</span>
-                <h2>Guias Práticos & Manuais</h2>
-                <span class="count">(2)</span>
-            </div>
-
-            <div class="cards-grid">
-                <div class="card pdf-card">
-                    <div class="card-top">
-                        <div class="card-icon red">📄</div>
-                        <span class="badge red">PDF</span>
-                        <span class="card-date">01/02/2026</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Cartilha - Como Identificar Phishing</h3>
-                        <p class="card-sub">12 páginas • Guia essencial de URLs</p>
-                    </div>
-                    <button class="card-arrow" onclick="openModal('Cartilha de Phishing', 'Verifique sempre o domínio do e-mail. Golpistas trocam letras impercetíveis (ex: g00gle.com em vez de google.com).')">></button>
+        <!-- ABA 1: HUB DE ESTUDOS -->
+        <div id="tab-hub" class="tab-content active">
+            <!-- Barra de Filtros e Busca -->
+            <div class="toolbar">
+                <div class="search-box">
+                    <input type="text" id="card-search" placeholder="Buscar guias, vídeos ou tarefas..." onkeyup="filterCards()">
                 </div>
-
-                <div class="card pdf-card">
-                    <div class="card-top">
-                        <div class="card-icon red">📄</div>
-                        <span class="badge red">PDF</span>
-                        <span class="card-date">01/02/2026</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Manual de Criação de Senhas Fortes</h3>
-                        <p class="card-sub">8 páginas • Passphrase vs Senhas simples</p>
-                    </div>
-                    <button class="card-arrow" onclick="openModal('Manual de Senhas', 'Combine frases sem nexo com números e símbolos. Nunca reutize a mesma senha no e-mail e em redes sociais.')">></button>
+                <div class="filter-tabs">
+                    <button class="filter-btn active" onclick="filterCategory('all', this)">Todos</button>
+                    <button class="filter-btn" onclick="filterCategory('pdf', this)">PDFs</button>
+                    <button class="filter-btn" onclick="filterCategory('video', this)">Vídeos</button>
+                    <button class="filter-btn" onclick="filterCategory('practice', this)">Práticas</button>
+                    <button class="filter-btn" onclick="filterCategory('note', this)">Anotações</button>
                 </div>
             </div>
-        </section>
 
-        <!-- SEÇÃO 2: Vídeos e Aulas -->
-        <section class="content-section">
-            <div class="section-header">
-                <span class="section-icon blue">🎬</span>
-                <h2>Vídeos Explicativos</h2>
-                <span class="count">(2)</span>
-            </div>
-
-            <div class="cards-grid">
-                <div class="card video-card">
-                    <div class="card-top">
-                        <div class="card-icon blue">▶</div>
-                        <span class="badge blue">Vídeo</span>
-                        <span class="card-date">31/01/2026</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Como funciona o Golpe da Falsa Central</h3>
-                        <p class="card-sub">15 minutos • Engenharia Social na prática</p>
-                    </div>
-                    <button class="card-arrow" onclick="openModal('Falsa Central', 'Bancos nunca ligam pedindo senhas, códigos SMS ou transferências para testes de segurança.')">></button>
+            <!-- SEÇÃO 1: Guias e Documentos PDF -->
+            <div class="section-block" data-category-block="pdf">
+                <div class="section-header">
+                    <h2>📄 Guias Práticos (PDF)</h2>
+                    <span class="section-badge">2 materiais</span>
                 </div>
+                <div class="cards-grid">
+                    <div class="card" data-category="pdf">
+                        <div>
+                            <div class="card-top">
+                                <span class="badge red">📄 PDF</span>
+                                <span class="card-date">01/02/2026</span>
+                            </div>
+                            <h3 class="card-title">Cartilha de Identificação de Phishing</h3>
+                            <p class="card-desc">Aprenda a analisar URLs, checar erros de digitação e verificar remetentes falsos em e-mails da faculdade.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">12 páginas</span>
+                            <button class="btn btn-outline" onclick="openModal('Cartilha de Phishing', 'Dica principal: Passe o cursor sobre o link sem clicar para ver o endereço real de destino. Nunca digite senhas em sites sem o cadeado de segurança (HTTPS).')">Ler Resumo</button>
+                        </div>
+                    </div>
 
-                <div class="card video-card">
-                    <div class="card-top">
-                        <div class="card-icon blue">▶</div>
-                        <span class="badge blue">Vídeo</span>
-                        <span class="card-date">30/01/2026</span>
+                    <div class="card" data-category="pdf">
+                        <div>
+                            <div class="card-top">
+                                <span class="badge red">📄 PDF</span>
+                                <span class="card-date">01/02/2026</span>
+                            </div>
+                            <h3 class="card-title">Manual de Gerenciamento de Senhas</h3>
+                            <p class="card-desc">Como criar combinações fortes usando frases-senha e por que não reusar a mesma senha no portal do aluno.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">8 páginas</span>
+                            <button class="btn btn-outline" onclick="openModal('Manual de Senhas', 'Substitua senhas curtas por frases longas como: CafedamanhaComLivro#2026. É mais fácil de lembrar e quase impossível para softwares hacker quebrarem.')">Ler Resumo</button>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h3>Ativando Autenticação em 2 Etapas (2FA)</h3>
-                        <p class="card-sub">10 minutos • Passo a passo no telemóvel</p>
-                    </div>
-                    <button class="card-arrow" onclick="openModal('Tutorial 2FA', 'Utilize aplicações autenticadoras (Google Authenticator) em vez de SMS para maior segurança.')">></button>
-                </div>
-            </div>
-        </section>
-
-        <!-- SEÇÃO 3: Tarefas e Práticas -->
-        <section class="content-section">
-            <div class="section-header">
-                <span class="section-icon green">📷</span>
-                <h2>Checklist & Práticas da Semana</h2>
-                <span class="count">(2)</span>
-            </div>
-
-            <div class="cards-grid">
-                <div class="card practice-card">
-                    <div class="card-top">
-                        <div class="card-icon green">📷</div>
-                        <span class="badge green">Prática</span>
-                        <span class="card-date">01/02/2026</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Cuidados no Wi-Fi da Biblioteca</h3>
-                        <p class="card-sub">Check-list de redes públicas</p>
-                    </div>
-                    <button class="card-arrow" onclick="openModal('Wi-Fi Público', 'Evite aceder a aplicações bancárias ou introduzir credenciais importantes ligado a redes Wi-Fi abertas.')">></button>
-                </div>
-
-                <div class="card practice-card">
-                    <div class="card-top">
-                        <div class="card-icon green">📷</div>
-                        <span class="badge green">Prática</span>
-                        <span class="card-date">01/02/2026</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Verificação de Vazamentos de CPF/E-mail</h3>
-                        <p class="card-sub">Teste de exposição de dados</p>
-                    </div>
-                    <button class="card-arrow" onclick="openModal('Verificador', 'Utilize serviços confiáveis para verificar se as suas credenciais apareceram em fugas de dados públicas.')">></button>
                 </div>
             </div>
-        </section>
 
-        <!-- SEÇÃO 4: Anotações Pessoais -->
-        <section class="content-section">
-            <div class="section-header">
-                <span class="section-icon yellow">📝</span>
-                <h2>Anotações Pessoais</h2>
-                <span class="count">(2)</span>
+            <!-- SEÇÃO 2: Vídeos Explicativos -->
+            <div class="section-block" data-category-block="video">
+                <div class="section-header">
+                    <h2>🎬 Vídeos Explicativos</h2>
+                    <span class="section-badge">2 aulas</span>
+                </div>
+                <div class="cards-grid">
+                    <div class="card" data-category="video">
+                        <div>
+                            <div class="card-top">
+                                <span class="badge blue">▶ Vídeo</span>
+                                <span class="card-date">31/01/2026</span>
+                            </div>
+                            <h3 class="card-title">Como funciona o Golpe da Falsa Central</h3>
+                            <p class="card-desc">Entenda como criminosos simulam chamadas telefônicas de bancos pedindo confirmação de senhas.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">15 min</span>
+                            <button class="btn btn-outline" onclick="openModal('Falsa Central', 'Lembre-se: Nenhuma instituição de ensino ou banco liga solicitando que você informe senhas ou códigos recebidos por SMS.')">Assistir Prévia</button>
+                        </div>
+                    </div>
+
+                    <div class="card" data-category="video">
+                        <div>
+                            <div class="card-top">
+                                <span class="badge blue">▶ Vídeo</span>
+                                <span class="card-date">30/01/2026</span>
+                            </div>
+                            <h3 class="card-title">Ativando a Autenticação em 2 Etapas (2FA)</h3>
+                            <p class="card-desc">Passo a passo no celular para proteger seu e-mail e redes sociais com camada dupla de acesso.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">10 min</span>
+                            <button class="btn btn-outline" onclick="openModal('Tutorial 2FA', 'Dê preferência a aplicativos como Google Authenticator em vez de validação por SMS, que é mais fácil de ser interceptada.')">Assistir Prévia</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="cards-grid">
-                <div class="card note-card">
-                    <div class="card-top">
-                        <div class="card-icon yellow">📝</div>
-                        <span class="badge yellow">Anotação</span>
-                        <span class="card-date">02/02/2026</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Resumo: Principais Golpes de 2026</h3>
-                        <p class="card-sub">Minhas anotações de estudo</p>
-                    </div>
-                    <button class="card-arrow" onclick="openModal('Anotação', 'Revisar conceitos de engenharia social antes dos testes de navegação.')">></button>
+            <!-- SEÇÃO 3: Tarefas e Práticas Semanal -->
+            <div class="section-block" data-category-block="practice">
+                <div class="section-header">
+                    <h2>⚙️ Práticas & Check-up Semanal</h2>
+                    <span class="section-badge">3 metas</span>
                 </div>
+                <div class="cards-grid">
+                    <div class="card completed" id="task-1" data-category="practice">
+                        <div>
+                            <div class="card-top">
+                                <span class="badge green">✓ Concluída</span>
+                                <span class="card-date">Segunda</span>
+                            </div>
+                            <h3 class="card-title">Revisão de Links Falsos de E-mail</h3>
+                            <p class="card-desc">Identifique remetentes estranhos recebidos na caixa de entrada da escola.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-outline" onclick="openModal('Meta Segunda', 'Meta concluída com sucesso!')">Detalhes</button>
+                            <button class="btn btn-success" onclick="toggleTask('task-1')">✓ Feito</button>
+                        </div>
+                    </div>
 
-                <div class="card note-card">
-                    <div class="card-top">
-                        <div class="card-icon yellow">📝</div>
-                        <span class="badge yellow">Anotação</span>
-                        <span class="card-date">02/02/2026</span>
+                    <div class="card completed" id="task-2" data-category="practice">
+                        <div>
+                            <div class="card-top">
+                                <span class="badge green">✓ Concluída</span>
+                                <span class="card-date">Terça</span>
+                            </div>
+                            <h3 class="card-title">Ativação do 2FA no E-mail Principal</h3>
+                            <p class="card-desc">Proteger o e-mail cadastrado na plataforma acadêmica.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-outline" onclick="openModal('Meta Terça', 'Meta concluída com sucesso!')">Detalhes</button>
+                            <button class="btn btn-success" onclick="toggleTask('task-2')">✓ Feito</button>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h3>Dúvidas para tirar no fórum</h3>
-                        <p class="card-sub">Minhas anotações de estudo</p>
+
+                    <div class="card" id="task-3" data-category="practice">
+                        <div>
+                            <div class="card-top">
+                                <span class="badge green">⚙ Prática</span>
+                                <span class="card-date">Quarta</span>
+                            </div>
+                            <h3 class="card-title">Checkup em Redes Wi-Fi Públicas</h3>
+                            <p class="card-desc">Desativar conexão automática em redes abertas de bibliotecas e cafés.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-outline" onclick="openModal('Meta Quarta', 'Redes Wi-Fi abertas permitem que terceiros capturem seu tráfego. Desative o reconectar automático.')">Instruções</button>
+                            <button class="btn btn-primary" onclick="toggleTask('task-3')">Concluir Meta</button>
+                        </div>
                     </div>
-                    <button class="card-arrow" onclick="openModal('Anotação', 'Como proteger dispositivos móveis contra malwares ocultos?')">></button>
                 </div>
             </div>
-        </section>
+
+            <!-- SEÇÃO 4: Anotações Pessoais -->
+            <div class="section-block" data-category-block="note">
+                <div class="section-header">
+                    <h2>📝 Anotações Pessoais</h2>
+                    <span class="section-badge">2 notas</span>
+                </div>
+                <div class="cards-grid">
+                    <div class="card" data-category="note">
+                        <div>
+                            <div class="card-top">
+                                <span class="badge yellow">📝 Anotação</span>
+                                <span class="card-date">02/02/2026</span>
+                            </div>
+                            <h3 class="card-title">Resumo: Golpes mais comuns do semestre</h3>
+                            <p class="card-desc">Links de descontos em apostilas e boletos falsos de mensalidade.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-outline" onclick="openModal('Minhas Anotações', 'Sempre conferir o CNPJ do beneficiário do boleto antes de efetuar o pagamento.')">Ver Nota</button>
+                        </div>
+                    </div>
+
+                    <div class="card" data-category="note">
+                        <div>
+                            <div class="card-top">
+                                <span class="badge yellow">📝 Anotação</span>
+                                <span class="card-date">02/02/2026</span>
+                            </div>
+                            <h3 class="card-title">Dúvidas para fórum do app</h3>
+                            <p class="card-desc">Como saber se um aplicativo de scanner no celular possui malware escondido?</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-outline" onclick="openModal('Minhas Anotações', 'Anotado para perguntar no próximo workshop de cibersegurança.')">Ver Nota</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA 2: ANALISADOR DE SUSPEITAS -->
+        <div id="tab-analyzer" class="tab-content">
+            <div class="analyzer-container">
+                <h2>🔍 Analisador de Links & Mensagens</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">Recebeu uma mensagem estranha no WhatsApp, SMS ou e-mail? Cole abaixo para verificar se possui indícios de golpe.</p>
+
+                <div class="analyzer-box">
+                    <textarea id="analyzer-text" placeholder="Cole aqui o link, e-mail ou mensagem suspeita... (Ex: 'Urgente! Clique aqui para atualizar seu cadastro da faculdade')"></textarea>
+                    <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="runAnalysis()">Analisar Conteúdo</button>
+                </div>
+
+                <div id="analyzer-result" class="result-card"></div>
+            </div>
+        </div>
+
+        <!-- ABA 3: PESQUISA & VALIDAÇÃO DO PROJETO -->
+        <div id="tab-validation" class="tab-content">
+            <div style="max-width: 800px;">
+                <h2 style="margin-bottom: 8px;">📋 Perguntas de Validação do Protótipo</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">Responda às questões para coletar feedback de estudantes e alinhar melhorias no aplicativo.</p>
+
+                <div class="questions-list">
+                    <div class="question-card">
+                        <h3>1. A visualização das categorias (PDFs, Vídeos, Práticas e Anotações) facilitou a localização dos conteúdos?</h3>
+                        <textarea placeholder="Digite sua resposta de validação..."></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <h3>2. As tarefas semanais e o gráfico de progresso ajudam você a criar o hábito de se proteger na internet?</h3>
+                        <textarea placeholder="Digite sua resposta de validação..."></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <h3>3. O Analisador de Suspeitas parece útil para verificar mensagens do seu dia a dia?</h3>
+                        <textarea placeholder="Digite sua resposta de validação..."></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <h3>4. Que outro tipo de funcionalidade você gostaria de ver na tela inicial do app?</h3>
+                        <textarea placeholder="Digite sua resposta de validação..."></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <h3>5. Em uma escala de 1 a 5, quão seguro você se sente agora para identificar um golpe de phishing?</h3>
+                        <textarea placeholder="Digite sua nota e comentários..."></textarea>
+                    </div>
+
+                    <button class="btn btn-primary" style="padding: 12px 24px; font-size: 0.9rem;" onclick="alert('Respostas salvas com sucesso no banco do protótipo!')">Enviar Feedback do Projeto</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA 4: CONFIGURAÇÕES -->
+        <div id="tab-settings" class="tab-content">
+            <div style="max-width: 600px; background: var(--surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border);">
+                <h2 style="margin-bottom: 16px;">⚙️ Configurações do Protótipo</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Ajustes de conta e modo de visualização do aplicativo.</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <label style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                        <input type="checkbox" checked> Receber lembretes de metas semanais por notificação
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                        <input type="checkbox" checked> Alertas de novos vazamentos de dados do e-mail acadêmico
+                    </label>
+                </div>
+            </div>
+        </div>
+
     </main>
 </div>
 
-<!-- Modal para Detalhes -->
-<div class="modal" id="modal">
-    <div class="modal-content">
+<!-- Modal Universal -->
+<div class="modal-overlay" id="modal">
+    <div class="modal-box">
         <h3 id="modal-title">Título</h3>
-        <p id="modal-body">Conteúdo detalhado aqui...</p>
-        <button class="btn-close" onclick="closeModal()">Fechar</button>
+        <p id="modal-body">Conteúdo aqui...</p>
+        <button class="btn btn-primary" style="width: 100%;" onclick="closeModal()">Compreendido</button>
     </div>
 </div>
 
 <script>
+    // Gerenciamento de Tarefas e Progresso
+    let completedTasks = 2;
+    const totalTasks = 5;
+
+    function updateProgress() {
+        const percent = Math.round((completedTasks / totalTasks) * 100);
+        document.getElementById('progress-bar').style.width = percent + '%';
+        document.getElementById('progress-percent').innerText = `${percent}% Concluído`;
+    }
+
+    function toggleTask(taskId) {
+        const card = document.getElementById(taskId);
+        const isCompleted = card.classList.contains('completed');
+        const badge = card.querySelector('.badge');
+        const btnAction = card.querySelectorAll('.btn')[1];
+
+        if (!isCompleted) {
+            card.classList.add('completed');
+            badge.className = 'badge green';
+            badge.innerText = '✓ Concluída';
+            btnAction.className = 'btn btn-success';
+            btnAction.innerText = '✓ Feito';
+            completedTasks++;
+        } else {
+            card.classList.remove('completed');
+            badge.className = 'badge green';
+            badge.innerText = '⚙ Prática';
+            btnAction.className = 'btn btn-primary';
+            btnAction.innerText = 'Concluir Meta';
+            completedTasks--;
+        }
+        updateProgress();
+    }
+
+    // Troca de Abas
+    function switchMainTab(tabName, element) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+        document.getElementById('tab-' + tabName).classList.add('active');
+        element.classList.add('active');
+
+        const titleMap = {
+            'hub': ['Hub de Estudos & Cibersegurança', 'Organize sua rotina semanal e aprenda a se proteger contra golpes digitais.'],
+            'analyzer': ['Analisador de Suspeitas', 'Ferramenta de checagem rápida para links, e-mails e mensagens suspeitas.'],
+            'validation': ['Pesquisa & Validação', 'Colete feedback dos usuários e valide o protótipo com estas 5 perguntas.'],
+            'settings': ['Configurações do Perfil', 'Gerencie suas preferências de notificação e dados do app.']
+        };
+
+        document.getElementById('page-title').innerText = titleMap[tabName][0];
+        document.getElementById('page-subtitle').innerText = titleMap[tabName][1];
+    }
+
+    // Filtro por Categoria
+    function filterCategory(cat, btnElement) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+
+        document.querySelectorAll('.card').forEach(card => {
+            if (cat === 'all' || card.getAttribute('data-category') === cat) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Ocultar seções vazias
+        document.querySelectorAll('.section-block').forEach(block => {
+            const blockCat = block.getAttribute('data-category-block');
+            if (cat === 'all' || blockCat === cat) {
+                block.style.display = 'block';
+            } else {
+                block.style.display = 'none';
+            }
+        });
+    }
+
+    // Busca em Tempo Real
+    function filterCards() {
+        const query = document.getElementById('card-search').value.toLowerCase();
+        document.querySelectorAll('.card').forEach(card => {
+            const text = card.innerText.toLowerCase();
+            card.style.display = text.includes(query) ? 'flex' : 'none';
+        });
+    }
+
+    // Analisador de Suspeitas
+    function runAnalysis() {
+        const text = document.getElementById('analyzer-text').value.toLowerCase();
+        const resultCard = document.getElementById('analyzer-result');
+
+        if (!text.trim()) {
+            alert('Por favor, digite ou cole um texto para ser analisado.');
+            return;
+        }
+
+        resultCard.style.display = 'block';
+
+        const suspiciousKeywords = ['urgente', 'senha', 'premio', 'cpf', 'clique aqui', 'bloqueado', 'http:', 'atualizacao', 'pix', 'mensalidade'];
+        const matches = suspiciousKeywords.filter(word => text.includes(word));
+
+        if (matches.length > 0) {
+            resultCard.className = 'result-card danger';
+            resultCard.innerHTML = `
+                <h3 style="margin-bottom: 6px;">⚠️ Alto Risco de Golpe Detectado</h3>
+                <p style="font-size: 0.85rem; line-height: 1.5;">Esta mensagem contém gatilhos típicos de phishing: <strong>${matches.join(', ')}</strong>. Golpistas usam senso de urgência para induzir o clique em links falsos. Não informe dados pessoais!</p>
+            `;
+        } else {
+            resultCard.className = 'result-card safe';
+            resultCard.innerHTML = `
+                <h3 style="margin-bottom: 6px;">✅ Nenhum Padrão Suspeito Evidente</h3>
+                <p style="font-size: 0.85rem; line-height: 1.5;">Não encontramos palavras-chave comuns de engenharia social. Contudo, confirme sempre se o endereço de e-mail do remetente é o domínio oficial da sua instituição.</p>
+            `;
+        }
+    }
+
+    // Modal
     function openModal(title, text) {
         document.getElementById('modal-title').innerText = title;
         document.getElementById('modal-body').innerText = text;
