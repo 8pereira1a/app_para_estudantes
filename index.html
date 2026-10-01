@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberPlann - Hub Colorido de Segurança & Estudos</title>
+    <title>CyberPlann - Hub Colorido & Interativo</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -167,17 +167,6 @@
             overflow: hidden;
         }
 
-        .header-banner::after {
-            content: "";
-            position: absolute;
-            right: -20px;
-            bottom: -30px;
-            width: 180px;
-            height: 180px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-        }
-
         .header-title h1 { font-size: 1.8rem; font-weight: 800; }
         .header-title p { opacity: 0.9; font-size: 0.95rem; margin-top: 6px; }
 
@@ -280,7 +269,7 @@
             box-shadow: 0 3px 10px rgba(99, 102, 241, 0.3);
         }
 
-        /* Blocos de Seção Coloridos */
+        /* Seções */
         .section-block { margin-bottom: 36px; }
 
         .section-header {
@@ -302,7 +291,6 @@
             color: white;
         }
 
-        /* Cores das Seções */
         .section-block[data-category-block="pdf"] .section-badge { background: var(--red-grad); }
         .section-block[data-category-block="video"] .section-badge { background: var(--blue-grad); }
         .section-block[data-category-block="note"] .section-badge { background: var(--yellow-grad); }
@@ -327,7 +315,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
 
-        /* Bordas e acentos coloridos no card */
         .card[data-category="pdf"] { border-top: 5px solid #FF4B2B; }
         .card[data-category="video"] { border-top: 5px solid #0072FF; }
         .card[data-category="note"] { border-top: 5px solid #F7971E; }
@@ -371,7 +358,7 @@
             border-top: 1px solid var(--border);
         }
 
-        /* Video Container */
+        /* Video Container Responsivo */
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%;
@@ -379,7 +366,8 @@
             overflow: hidden;
             border-radius: 12px;
             margin-bottom: 14px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: #000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .video-wrapper iframe {
@@ -389,7 +377,7 @@
             border: none;
         }
 
-        /* Formulário de Anotações Colorido */
+        /* Caderno de Anotações */
         .note-creator {
             background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
             border: 2px solid var(--yellow-border);
@@ -420,7 +408,7 @@
 
         .note-inputs textarea { height: 90px; resize: vertical; }
 
-        /* Botões Coloridos */
+        /* Botões */
         .btn {
             border: none;
             padding: 10px 18px;
@@ -446,6 +434,65 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
+        /* Perguntas de Validação */
+        .validation-box {
+            background: white;
+            padding: 32px;
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            max-width: 800px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+        }
+
+        .question-group {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-group:last-child { border-bottom: none; }
+
+        .question-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .question-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .option-label input { width: 16px; height: 16px; accent-color: var(--primary-color); }
+
+        .question-textarea {
+            width: 100%;
+            height: 80px;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            font-size: 0.9rem;
+            outline: none;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
         /* Modal */
         .modal-overlay {
             position: fixed;
@@ -464,7 +511,7 @@
             background: var(--surface);
             padding: 28px;
             border-radius: 24px;
-            max-width: 600px;
+            max-width: 650px;
             width: 90%;
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
@@ -507,16 +554,16 @@
     <!-- Conteúdo Principal -->
     <main class="main-wrapper">
         
-        <!-- Banner Principal Colorido -->
+        <!-- Banner Principal -->
         <header class="header-banner">
             <div class="header-title">
                 <h1 id="page-title">Hub de Estudos & Cibersegurança 🚀</h1>
-                <p id="page-subtitle">Guias completos, vídeos aulas e seu caderno de anotações interativo.</p>
+                <p id="page-subtitle">Guias completos, vídeo-aulas práticas e seu caderno de anotações pessoal.</p>
             </div>
 
             <div class="progress-box">
                 <div class="progress-info">
-                    <span>Metas da Semana</span>
+                    <span>Metas Concluídas</span>
                     <span id="progress-percent">40% Concluído</span>
                 </div>
                 <div class="progress-bar-bg">
@@ -544,7 +591,7 @@
             <div class="section-block" data-category-block="pdf">
                 <div class="section-header">
                     <h2>📄 Guias Práticos & Manuais (PDF)</h2>
-                    <span class="section-badge">4 Documentos</span>
+                    <span class="section-badge">4 Guias</span>
                 </div>
                 <div class="cards-grid">
                     <div class="card" data-category="pdf">
@@ -573,7 +620,7 @@
                         </div>
                         <div class="card-footer">
                             <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">8 páginas</span>
-                            <button class="btn btn-outline" onclick="openModal('Manual de Senhas', 'Resumo Prático:\nCrie frases longas como: Cafe#ComLeite!2026. Evite datas de nascimento ou nomes fáceis de advinhar.')">Abrir Leitura</button>
+                            <button class="btn btn-outline" onclick="openModal('Manual de Senhas', 'Resumo Prático:\nCrie frases longas como: Cafe#ComLeite!2026. Evite datas de nascimento ou nomes fáceis de adivinhar.')">Abrir Leitura</button>
                         </div>
                     </div>
 
@@ -599,11 +646,11 @@
                                 <span class="card-date">02/02/2026</span>
                             </div>
                             <h3 class="card-title">Cartilha de Proteção no WhatsApp</h3>
-                            <p class="card-desc">Passo a passo para bloquear a clonagem de conta e ativar a senha de 6 dígitos no telemóvel.</p>
+                            <p class="card-desc">Passo a passo para bloquear a clonagem de conta e ativar a confirmação em duas etapas.</p>
                         </div>
                         <div class="card-footer">
                             <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">6 páginas</span>
-                            <button class="btn btn-outline" onclick="openModal('WhatsApp Seguro', 'Resumo Prático:\nAcesse Configurações > Conta > Confirmação em Duas Etapas e defina um PIN exclusivo.')">Abrir Leitura</button>
+                            <button class="btn btn-outline" onclick="openModal('WhatsApp Seguro', 'Resumo Prático:\nAcesse Configurações > Conta > Confirmação em Duas Etapas e defina um PIN exclusivo de 6 dígitos.')">Abrir Leitura</button>
                         </div>
                     </div>
                 </div>
@@ -623,14 +670,14 @@
                                 <span class="card-date">31/01/2026</span>
                             </div>
                             <div class="video-wrapper">
-                                <iframe src="https://www.youtube-nocookie.com/embed/InT4L_SFiMo" title="Entendendo Phishing" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/InT4L_SFiMo" title="O que é Phishing?" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             <h3 class="card-title">O que é Phishing e como se proteger?</h3>
-                            <p class="card-desc">Assista ao vídeo para entender os truques mais comuns de engenharia social.</p>
+                            <p class="card-desc">Aprenda a identificar golpes virtuais e e-mails falsos na prática através desta aula rápida.</p>
                         </div>
                         <div class="card-footer">
                             <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Assista acima</span>
-                            <button class="btn btn-primary" onclick="openVideoModal('https://www.youtube-nocookie.com/embed/InT4L_SFiMo', 'Conceitos de Phishing')">Expandir Vídeo</button>
+                            <button class="btn btn-primary" onclick="openVideoModal('https://www.youtube.com/embed/InT4L_SFiMo', 'Conceitos de Phishing')">Tela Cheia</button>
                         </div>
                     </div>
 
@@ -641,14 +688,14 @@
                                 <span class="card-date">30/01/2026</span>
                             </div>
                             <div class="video-wrapper">
-                                <iframe src="https://www.youtube-nocookie.com/embed/L180j_vI1cI" title="Autenticação em 2 Passos" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/L180j_vI1cI" title="Autenticação em 2 Passos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             <h3 class="card-title">Como ativar a Autenticação em 2 Etapas</h3>
-                            <p class="card-desc">Tutorial rápido sobre como proteger suas contas em aplicativos móveis.</p>
+                            <p class="card-desc">Tutorial em vídeo ensinando a blindar suas contas em redes sociais e e-mail com 2FA.</p>
                         </div>
                         <div class="card-footer">
                             <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Assista acima</span>
-                            <button class="btn btn-primary" onclick="openVideoModal('https://www.youtube-nocookie.com/embed/L180j_vI1cI', 'Autenticação em 2 Etapas')">Expandir Vídeo</button>
+                            <button class="btn btn-primary" onclick="openVideoModal('https://www.youtube.com/embed/L180j_vI1cI', 'Autenticação em 2 Etapas')">Tela Cheia</button>
                         </div>
                     </div>
                 </div>
@@ -661,19 +708,19 @@
                     <span class="section-badge" id="notes-count">0 notas</span>
                 </div>
 
-                <!-- Formulário de Nova Anotação -->
+                <!-- Criador de Notas -->
                 <div class="note-creator">
-                    <h3>✍️ Escrever Nova Anotação</h3>
+                    <h3>✍️ Escrever Nova Anotação Pessoal</h3>
                     <div class="note-inputs">
                         <input type="text" id="new-note-title" placeholder="Título da nota (Ex: Regras de Wi-Fi na Biblioteca)">
                         <textarea id="new-note-content" placeholder="Escreva aqui suas observações de estudo..."></textarea>
                         <div style="display: flex; justify-content: flex-end;">
-                            <button class="btn btn-yellow" onclick="addNote()"> Salvar Nota no App</button>
+                            <button class="btn btn-yellow" onclick="addNote()">Salvar Anotação no App</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Onde as notas digitadas aparecem -->
+                <!-- Lista de Notas do Usuário -->
                 <div class="cards-grid" id="user-notes-grid"></div>
             </div>
 
@@ -693,19 +740,58 @@
             </div>
         </div>
 
-        <!-- ABA 3: VALIDAÇÃO -->
+        <!-- ABA 3: VALIDAÇÃO DO PROJETO (PERGUNTAS COMPLETAS) -->
         <div id="tab-validation" class="tab-content">
-            <div style="background: white; padding: 32px; border-radius: 24px; border: 2px solid var(--border); max-width: 750px;">
-                <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">📋 Validação do Protótipo</h2>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">Utilize estas perguntas para testar a experiência do usuário com o projeto.</p>
+            <div class="validation-box">
+                <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">📋 Questionnaire de Validação do Protótipo</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px;">Responda às perguntas abaixo para avaliar a experiência e utilidade da plataforma CyberPlann.</p>
 
-                <div style="display: flex; flex-direction: column; gap: 18px;">
-                    <div>
-                        <label style="font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 8px;">1. O visual colorido e a separação de PDFs, Vídeos e Notas facilitou o uso?</label>
-                        <textarea style="width:100%; height:70px; padding:12px; border-radius:12px; border:2px solid var(--border); font-size:0.9rem;" placeholder="Escreva a resposta do usuário..."></textarea>
+                <form id="validation-form" onsubmit="event.preventDefault(); submitValidation();">
+                    
+                    <div class="question-group">
+                        <div class="question-title">1. Como você avalia a organização visual do Hub (PDFs, Vídeos e Anotações)?</div>
+                        <div class="question-options">
+                            <label class="option-label"><input type="radio" name="q1" value="excelente" required> Excelente e muito clara</label>
+                            <label class="option-label"><input type="radio" name="q1" value="boa"> Boa e bem distribuída</label>
+                            <label class="option-label"><input type="radio" name="q1" value="regular"> Regular, pode melhorar</label>
+                            <label class="option-label"><input type="radio" name="q1" value="confusa"> Confusa</label>
+                        </div>
                     </div>
-                    <button class="btn btn-primary" style="padding:12px 24px;" onclick="alert('Respostas salvas!')">Salvar Validação</button>
-                </div>
+
+                    <div class="question-group">
+                        <div class="question-title">2. Os guias em PDF e os vídeos explicativos foram úteis para seu aprendizado?</div>
+                        <div class="question-options">
+                            <label class="option-label"><input type="radio" name="q2" value="sim" required> Sim, aprendi novos conceitos de segurança</label>
+                            <label class="option-label"><input type="radio" name="q2" value="parcialmente"> Parcialmente, já conhecia alguns temas</label>
+                            <label class="option-label"><input type="radio" name="q2" value="nao"> Não foram tão relevantes</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question-title">3. O Caderno de Anotações Pessoais funcionou bem para registrar suas ideias?</div>
+                        <div class="question-options">
+                            <label class="option-label"><input type="radio" name="q3" value="facil" required> Muito fácil de usar e prático</label>
+                            <label class="option-label"><input type="radio" name="q3" value="util"> Útil, cumpriu a função</label>
+                            <label class="option-label"><input type="radio" name="q3" value="dificil"> Tive dificuldades ao salvar notas</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question-title">4. O que você achou do Analisador Instantâneo de Links e Texto?</div>
+                        <div class="question-options">
+                            <label class="option-label"><input type="radio" name="q4" value="muito_util" required> Muito útil para checar mensagens no dia a dia</label>
+                            <label class="option-label"><input type="radio" name="q4" value="interessante"> Interessante, mas gostaria de mais detalhes no resultado</label>
+                            <label class="option-label"><input type="radio" name="q4" value="pouco_util"> Pouco relevante</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question-title">5. Que novos temas de segurança ou funcionalidades você gostaria de ver no CyberPlann?</div>
+                        <textarea class="question-textarea" id="q5-text" placeholder="Escreva suas sugestões, críticas ou elogios aqui..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="padding: 14px 28px; font-size: 1rem; width: 100%;">Enviar Respostas de Validação 🚀</button>
+                </form>
             </div>
         </div>
 
@@ -723,17 +809,17 @@
 
 <script>
     // --- GERENCIADOR DE ANOTAÇÕES PESSOAIS (LocalStorage) ---
-    let userNotes = JSON.parse(localStorage.getItem('cyberplann_vibrant_notes')) || [
+    let userNotes = JSON.parse(localStorage.getItem('cyberplann_v2_notes')) || [
         {
             id: 1,
             title: "Regra das Senhas no Celular",
-            content: "Lembrar de nunca anotar senhas em aplicativos de bloco de notas sem proteção de biometria.",
+            content: "Lembrar de nunca anotar senhas em blocos de notas não criptografados no telemóvel.",
             date: "02/02/2026"
         }
     ];
 
     function saveNotes() {
-        localStorage.setItem('cyberplann_vibrant_notes', JSON.stringify(userNotes));
+        localStorage.setItem('cyberplann_v2_notes', JSON.stringify(userNotes));
     }
 
     function renderNotes() {
@@ -741,10 +827,10 @@
         const countBadge = document.getElementById('notes-count');
         grid.innerHTML = '';
 
-        countBadge.innerText = `${userNotes.length} notas cadastradas`;
+        countBadge.innerText = `${userNotes.length} notas salvas`;
 
         if (userNotes.length === 0) {
-            grid.innerHTML = `<p style="color: var(--text-muted); font-size:0.95rem; font-weight:600;">Sua lista de anotações está vazia. Crie uma nota no bloco acima!</p>`;
+            grid.innerHTML = `<p style="color: var(--text-muted); font-size:0.95rem; font-weight:600;">Sua lista de anotações está vazia. Crie uma nota acima!</p>`;
             return;
         }
 
@@ -859,7 +945,7 @@
         document.getElementById('modal-title').innerText = title;
         document.getElementById('modal-body').innerHTML = `
             <div class="video-wrapper">
-                <iframe src="${videoSrc}" title="${title}" allowfullscreen></iframe>
+                <iframe src="${videoSrc}" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         `;
         document.getElementById('modal').classList.add('active');
@@ -885,16 +971,22 @@
             res.style.background = '#FFE4E6';
             res.style.color = '#E11D48';
             res.style.border = '2px solid #FDA4AF';
-            res.innerHTML = '<strong>⚠️ Alto Risco Detectado:</strong> Esta mensagem contém palavras típicas de fraude (senso de urgência ou solicitação de dados/links).';
+            res.innerHTML = '<strong>⚠️ Alto Risco Detectado:</strong> Esta mensagem contém palavras típicas de fraude (senso de urgência ou solicitação de senhas e links).';
         } else {
             res.style.background = '#D1FAE5';
             res.style.color = '#059669';
             res.style.border = '2px solid #6EE7B7';
-            res.innerHTML = '<strong>✅ Risco Baixo:</strong> Não identificamos padrões imediatos de engenharia social.';
+            res.innerHTML = '<strong>✅ Risco Baixo:</strong> Não identificamos padrões imediatos de golpes nesta mensagem.';
         }
     }
 
-    // Renderizar notas no início
+    // --- FORMULÁRIO DE VALIDAÇÃO ---
+    function submitValidation() {
+        alert('Obrigado! Suas respostas de validação foram registradas com sucesso.');
+        document.getElementById('validation-form').reset();
+    }
+
+    // Inicialização
     renderNotes();
 </script>
 
